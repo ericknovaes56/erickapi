@@ -8,7 +8,8 @@ const port = 3001;
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'http://example.com', // Adicione outras origens conforme necessário
+    'https://ericknovaes56.netlify.app/', 
+    'https://ericknovaes56.netlify.app', 
   ];
   
   const corsOptions = {

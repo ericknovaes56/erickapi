@@ -6,10 +6,24 @@ const cors = require('cors'); // Importa o pacote cors
 const app = express();
 const port = 3001;
 
-const corsOptions = {
-    origin: 'http://localhost:3000'
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://example.com', // Adicione outras origens conforme necessário
+  ];
+  
+  const corsOptions = {
+    origin: (origin, callback) => {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        // Permite a origem se estiver na lista ou se a origem não estiver definida (por exemplo, quando a origem é undefined)
+        callback(null, true);
+      } else {
+        // Rejeita a origem se não estiver na lista
+        callback(new Error('Não autorizado por CORS'));
+      }
+    },
   };
-app.use(cors(corsOptions)); // Adiciona o middleware cors com opções
+  
+  app.use(cors(corsOptions)); // Adiciona o middleware cors com opções
 app.use(express.json()); // Para lidar com o corpo das requisições JSON
 
 const filePath = path.join(__dirname, 'clicks.json');
